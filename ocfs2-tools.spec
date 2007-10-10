@@ -2,8 +2,8 @@
 
 Summary:	Tools for managing the Oracle Cluster Filesystem 2
 Name:		ocfs2-tools
-Version:	1.2.3
-Release:	%mkrel 2
+Version:	1.2.6
+Release:	%mkrel 1
 License:	GPL
 Group:		System/Base
 URL:		http://oss.oracle.com/projects/ocfs2-tools/
@@ -75,8 +75,10 @@ install -m0644 documentation/samples/cluster.conf %{buildroot}%{_sysconfdir}/ocf
 
 # install extras
 install -d %{buildroot}%{_sbindir}
+install -m0755 extras/compute_groups %{buildroot}%{_sbindir}/
 install -m0755 extras/decode_lockres %{buildroot}%{_sbindir}/
 install -m0755 extras/encode_lockres %{buildroot}%{_sbindir}/
+install -m0755 extras/find_allocation_fragments %{buildroot}%{_sbindir}/
 install -m0755 extras/find_dup_extents %{buildroot}%{_sbindir}/
 install -m0755 extras/find_hardlinks %{buildroot}%{_sbindir}/
 install -m0755 extras/find_inode_paths %{buildroot}%{_sbindir}/
@@ -119,8 +121,10 @@ install -m 0644 vendor/common/o2cb.sysconfig %{buildroot}%{_sysconfdir}/sysconfi
 %attr(0755,root,root) /sbin/ocfs2_hb_ctl
 %attr(0755,root,root) /sbin/ocfs2cdsl
 %attr(0755,root,root) /sbin/tunefs.ocfs2
+%attr(0755,root,root) %{_sbindir}/compute_groups
 %attr(0755,root,root) %{_sbindir}/decode_lockres
 %attr(0755,root,root) %{_sbindir}/encode_lockres
+%attr(0755,root,root) %{_sbindir}/find_allocation_fragments
 %attr(0755,root,root) %{_sbindir}/find_dup_extents
 %attr(0755,root,root) %{_sbindir}/find_hardlinks
 %attr(0755,root,root) %{_sbindir}/find_inode_paths
