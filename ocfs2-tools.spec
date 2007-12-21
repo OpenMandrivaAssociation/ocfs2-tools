@@ -17,6 +17,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	libreadline-devel
 BuildRequires:	ncurses-devel
 Requires:	kernel >= 2.6.16.1
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Tools to manage Oracle Cluster Filesystem 2 volumes.
