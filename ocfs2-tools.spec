@@ -2,8 +2,8 @@
 
 Summary:	Tools for managing the Oracle Cluster Filesystem 2
 Name:		ocfs2-tools
-Version:	1.2.6
-Release:	%mkrel 1
+Version:	1.2.3
+Release:	%mkrel 3
 License:	GPL
 Group:		System/Base
 URL:		http://oss.oracle.com/projects/ocfs2-tools/
