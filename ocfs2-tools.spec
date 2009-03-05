@@ -1,13 +1,17 @@
 %define _requires_exceptions pkgconfig(com_err) 
+%define _disable_ld_no_undefined 1
 
 Summary:	Tools for managing the Oracle Cluster Filesystem 2
 Name:		ocfs2-tools
-Version:	1.2.3
-Release:	%mkrel 5
+Version:	1.4.1
+Release:	%mkrel 1
 License:	GPL
 Group:		System/Base
 URL:		http://oss.oracle.com/projects/ocfs2-tools/
 Source0:	http://oss.oracle.com/projects/ocfs2-tools/dist/files/source/v1.2/%{name}-%{version}.tar.gz
+Patch0:     ocfs2-tools-1.4.1-fix-missing-header.patch
+Patch1:     ocfs2-tools-1.4.1-fix-format-errors.patch
+Patch2:     ocfs2-tools-1.4.1-fix-linking.patch
 BuildRequires:	e2fsprogs-devel
 BuildRequires:	glib2-devel >= 2.2.3
 BuildRequires:	glibc-static-devel
@@ -16,6 +20,7 @@ BuildRequires:	python-devel
 BuildRequires:	pkgconfig
 BuildRequires:	libreadline-devel
 BuildRequires:	ncurses-devel
+BuildRequires:	libdlm-devel
 Requires:	kernel >= 2.6.16.1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -52,8 +57,10 @@ Requires:	%{name}-devel = %{version}
 This package contains static libraries used for ocfs2-tools development.
 
 %prep
-
 %setup -q -n %{name}-%{version}
+%patch0 -p 1
+%patch1 -p 1
+%patch2 -p 1
 
 %build
 
@@ -111,47 +118,49 @@ install -m 0644 vendor/common/o2cb.sysconfig %{buildroot}%{_sysconfdir}/sysconfi
 %config(noreplace) %{_sysconfdir}/sysconfig/o2cb
 %{_initrddir}/o2cb
 %{_initrddir}/ocfs2
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/ocfs2/cluster.conf
-%attr(0755,root,root) /sbin/debugfs.ocfs2
-%attr(0755,root,root) /sbin/fsck.ocfs2
-%attr(0755,root,root) /sbin/mkfs.ocfs2
-%attr(0755,root,root) /sbin/mount.ocfs2
-%attr(0755,root,root) /sbin/mounted.ocfs2
-%attr(0755,root,root) /sbin/o2cb_ctl
-%attr(0755,root,root) /sbin/ocfs2_hb_ctl
-%attr(0755,root,root) /sbin/ocfs2cdsl
-%attr(0755,root,root) /sbin/tunefs.ocfs2
-%attr(0755,root,root) %{_sbindir}/compute_groups
-%attr(0755,root,root) %{_sbindir}/decode_lockres
-%attr(0755,root,root) %{_sbindir}/encode_lockres
-%attr(0755,root,root) %{_sbindir}/find_allocation_fragments
-%attr(0755,root,root) %{_sbindir}/find_dup_extents
-%attr(0755,root,root) %{_sbindir}/find_hardlinks
-%attr(0755,root,root) %{_sbindir}/find_inode_paths
-%attr(0755,root,root) %{_sbindir}/mark_journal_dirty
-%attr(0755,root,root) %{_sbindir}/set_random_bits
-%attr(0644,root,root) %{_mandir}/man8/debugfs.ocfs2.8*
-%attr(0644,root,root) %{_mandir}/man8/fsck.ocfs2.8*
-%attr(0644,root,root) %{_mandir}/man8/fsck.ocfs2.checks.8*
-%attr(0644,root,root) %{_mandir}/man8/mkfs.ocfs2.8*
-%attr(0644,root,root) %{_mandir}/man8/mounted.ocfs2.8*
-%attr(0644,root,root) %{_mandir}/man8/o2cb_ctl.8*
-%attr(0644,root,root) %{_mandir}/man8/ocfs2_hb_ctl.8*
-%attr(0644,root,root) %{_mandir}/man8/ocfs2cdsl.8*
-%attr(0644,root,root) %{_mandir}/man8/tunefs.ocfs2.8*
-%attr(0644,root,root) %{_mandir}/man8/mount.ocfs2.8*
+%config(noreplace) %{_sysconfdir}/ocfs2/cluster.conf
+/sbin/debugfs.ocfs2
+/sbin/fsck.ocfs2
+/sbin/mkfs.ocfs2
+/sbin/mount.ocfs2
+/sbin/mounted.ocfs2
+/sbin/o2cb_ctl
+/sbin/ocfs2_hb_ctl
+/sbin/tunefs.ocfs2
+/sbin/o2image
+%{_sbindir}/compute_groups
+%{_sbindir}/decode_lockres
+%{_sbindir}/encode_lockres
+%{_sbindir}/find_allocation_fragments
+%{_sbindir}/find_dup_extents
+%{_sbindir}/find_hardlinks
+%{_sbindir}/find_inode_paths
+%{_sbindir}/mark_journal_dirty
+%{_sbindir}/set_random_bits
+%{_mandir}/man7/o2cb.7.*
+%{_mandir}/man8/o2image.8.*
+%{_mandir}/man8/debugfs.ocfs2.8*
+%{_mandir}/man8/fsck.ocfs2.8*
+%{_mandir}/man8/fsck.ocfs2.checks.8*
+%{_mandir}/man8/mkfs.ocfs2.8*
+%{_mandir}/man8/mounted.ocfs2.8*
+%{_mandir}/man8/o2cb_ctl.8*
+%{_mandir}/man8/ocfs2_hb_ctl.8*
+%{_mandir}/man8/tunefs.ocfs2.8*
+%{_mandir}/man8/mount.ocfs2.8*
 
 %files -n ocfs2console
 %defattr(-,root,root)
 %{py_libdir}/site-packages/ocfs2interface
-%attr(0755,root,root) %{_sbindir}/ocfs2console
-%attr(0644,root,root) %{_mandir}/man8/ocfs2console.8*
+%{_sbindir}/ocfs2console
+%{_mandir}/man8/ocfs2console.8*
 
 %files devel
 %defattr(-,root,root)
 %{_includedir}/o2cb
 %{_includedir}/o2dlm
 %{_includedir}/ocfs2
+%{_includedir}/ocfs2-kernel
 %{_libdir}/pkgconfig/o2cb.pc
 %{_libdir}/pkgconfig/o2dlm.pc
 %{_libdir}/pkgconfig/ocfs2.pc
