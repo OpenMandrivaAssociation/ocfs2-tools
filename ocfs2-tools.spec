@@ -4,7 +4,7 @@
 Summary:	Tools for managing the Oracle Cluster Filesystem 2
 Name:		ocfs2-tools
 Version:	1.4.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		System/Base
 URL:		http://oss.oracle.com/projects/ocfs2-tools/
@@ -12,7 +12,7 @@ Source0:	http://oss.oracle.com/projects/ocfs2-tools/dist/files/source/v1.2/%{nam
 Patch0:     ocfs2-tools-1.4.1-fix-missing-header.patch
 Patch1:     ocfs2-tools-1.4.1-fix-format-errors.patch
 Patch2:     ocfs2-tools-1.4.1-fix-linking.patch
-BuildRequires:	e2fsprogs-devel
+BuildRequires:	libblkid-devel
 BuildRequires:	glib2-devel >= 2.2.3
 BuildRequires:	glibc-static-devel
 BuildRequires:	pygtk2.0 >= 1.99.16
