@@ -1,17 +1,16 @@
 %define _requires_exceptions pkgconfig(com_err) 
-%define _disable_ld_no_undefined 1
 
 Summary:	Tools for managing the Oracle Cluster Filesystem 2
 Name:		ocfs2-tools
-Version:	1.4.1
-Release:	%mkrel 2
+Version:	1.4.4
+Release:	%mkrel 1
 License:	GPL
 Group:		System/Base
 URL:		http://oss.oracle.com/projects/ocfs2-tools/
 Source0:	http://oss.oracle.com/projects/ocfs2-tools/dist/files/source/v1.2/%{name}-%{version}.tar.gz
-Patch0:     ocfs2-tools-1.4.1-fix-missing-header.patch
-Patch1:     ocfs2-tools-1.4.1-fix-format-errors.patch
-Patch2:     ocfs2-tools-1.4.1-fix-linking.patch
+Patch1:     ocfs2-tools-1.4.4-fix-format-errors.patch
+Patch2:     ocfs2-tools-1.4.4-fix-linking.patch
+Patch3:     ocfs2-tools-gcc45.patch
 BuildRequires:	libblkid-devel
 BuildRequires:	glib2-devel >= 2.2.3
 BuildRequires:	glibc-static-devel
@@ -58,9 +57,9 @@ This package contains static libraries used for ocfs2-tools development.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p 1
 %patch1 -p 1
 %patch2 -p 1
+%patch3 -p 1
 
 %build
 
