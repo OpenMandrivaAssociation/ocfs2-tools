@@ -19,6 +19,7 @@ BuildRequires:	python-devel
 BuildRequires:	pkgconfig
 BuildRequires:	libreadline-devel
 BuildRequires:	ncurses-devel
+BuildRequires:	ext2fs-devel
 BuildRequires:	dlm-devel
 Requires:	kernel >= 2.6.16.1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
