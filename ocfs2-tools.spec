@@ -2,13 +2,13 @@
 
 Summary:	Tools for managing the Oracle Cluster Filesystem 2
 Name:		ocfs2-tools
-Version:	1.4.4
+Version:	1.6.4
 Release:	%mkrel 1
 License:	GPL
 Group:		System/Base
 URL:		http://oss.oracle.com/projects/ocfs2-tools/
 Source0:	http://oss.oracle.com/projects/ocfs2-tools/dist/files/source/v1.2/%{name}-%{version}.tar.gz
-Patch1:     ocfs2-tools-1.4.4-fix-format-errors.patch
+Patch1:     ocfs2-tools-1.6.4-fix-format-errors.patch
 Patch2:     ocfs2-tools-1.4.4-fix-linking.patch
 Patch3:     ocfs2-tools-gcc45.patch
 BuildRequires:	libblkid-devel
@@ -21,6 +21,7 @@ BuildRequires:	libreadline-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	ext2fs-devel
 BuildRequires:	dlm-devel
+BuildRequires:	openais-devel
 Requires:	kernel >= 2.6.16.1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -60,7 +61,7 @@ This package contains static libraries used for ocfs2-tools development.
 %setup -q -n %{name}-%{version}
 %patch1 -p 1
 %patch2 -p 1
-%patch3 -p 1
+#patch3 -p 1
 
 %build
 
@@ -137,6 +138,9 @@ install -m 0644 vendor/common/o2cb.sysconfig %{buildroot}%{_sysconfdir}/sysconfi
 %{_sbindir}/find_inode_paths
 %{_sbindir}/mark_journal_dirty
 %{_sbindir}/set_random_bits
+%{_sbindir}/o2hbmonitor
+%{_bindir}/o2info
+%{_mandir}/man1/o2info.1.*
 %{_mandir}/man7/o2cb.7.*
 %{_mandir}/man8/o2image.8.*
 %{_mandir}/man8/debugfs.ocfs2.8*
