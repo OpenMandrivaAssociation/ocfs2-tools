@@ -1,0 +1,57 @@
+--- ocfs2-tools-1.4.4/ocfs2console/ocfs2interface/Makefile.link	2010-11-19 03:16:43.000000000 +0000
++++ ocfs2-tools-1.4.4/ocfs2console/ocfs2interface/Makefile	2010-11-19 03:19:03.000000000 +0000
+@@ -90,16 +90,16 @@
+ DIST_FILES = $(PLIST_CFILES) $(PLIST_HFILES) $(GIDLE_CFILES) $(OCFS2_CFILES) $(O2CB_CFILES) $(PYSRC) $(addsuffix .in,$(BUILT_PYSRC))
+ 
+ plistmodule.so: $(PLIST_OBJS) $(LIBOCFS2_DEPS) $(LIBO2DLM_DEPS) $(LIBO2CB_DEPS) $(BLKID_DEPS)
+-	$(LINK) -shared $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(BLKID_LIBS) $(COM_ERR_LIBS) $(GLIB_LIBS)
++	$(LINK) -shared $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(BLKID_LIBS) $(COM_ERR_LIBS) $(GLIB_LIBS) `python-config --libs`
+ 
+ gidlemodule.so: $(GIDLE_OBJS)
+-	$(LINK) -shared $(GLIB_LIBS)
++	$(LINK) -shared $(GLIB_LIBS) `python-config --libs`
+ 
+ ocfs2module.so: $(OCFS2_OBJS) $(LIBOCFS2_DEPS) $(LIBO2DLM_DEPS) $(LIBO2CB_DEPS)
+-	$(LINK) -shared $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(COM_ERR_LIBS) $(UUID_LIBS)
++	$(LINK) -shared $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(COM_ERR_LIBS) $(UUID_LIBS) `python-config --libs`
+ 
+ o2cbmodule.so: $(O2CB_OBJS) $(LIBO2CB_DEPS)
+-	$(LINK) -shared $(LIBO2CB_LIBS) $(COM_ERR_LIBS)
++	$(LINK) -shared $(LIBO2CB_LIBS) $(COM_ERR_LIBS) `python-config --libs`
+ 
+ install-pylib:
+ 	$(SHELL) $(TOPDIR)/mkinstalldirs $(DESTDIR)$(pyexecdir)/ocfs2interface
+diff -Naur ocfs2-tools-1.4.1/fsck.ocfs2/Makefile ocfs2-tools-1.4.1-fix-linking/fsck.ocfs2/Makefile
+--- ocfs2-tools-1.4.1/fsck.ocfs2/Makefile	2008-07-22 00:44:25.000000000 +0200
++++ ocfs2-tools-1.4.1-fix-linking/fsck.ocfs2/Makefile	2009-03-05 21:23:03.000000000 +0100
+@@ -58,7 +58,7 @@
+ 	$(TOPDIR)/mkinstalldirs $(DIST_DIR)/include
+ 
+ fsck.ocfs2: $(OBJS) $(LIBOCFS2_DEPS) $(LIBO2DLM_DEPS) $(LIBO2CB_DEPS)
+-	$(LINK) $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(COM_ERR_LIBS)
++	$(LINK) $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(COM_ERR_LIBS) -lpthread
+ 
+ $(OBJS): prompt-codes.h
+ 
+diff -Naur ocfs2-tools-1.4.1/o2cb_ctl/Makefile ocfs2-tools-1.4.1-fix-linking/o2cb_ctl/Makefile
+--- ocfs2-tools-1.4.1/o2cb_ctl/Makefile	2008-06-24 23:02:52.000000000 +0200
++++ ocfs2-tools-1.4.1-fix-linking/o2cb_ctl/Makefile	2009-03-05 21:35:51.000000000 +0100
+@@ -40,6 +40,6 @@
+ o2cb_ctl_CPPFLAGS = $(GLIB_CFLAGS) -DG_DISABLE_DEPRECATED
+ 
+ o2cb_ctl: $(O2CB_CTL_OBJS) $(LIBOCFS2_DEPS) $(LIBO2CB_DEPS)
+-	$(LINK) $(LIBO2CB_LIBS) $(GLIB_LIBS) $(LIBOCFS2_LIBS) $(COM_ERR_LIBS)
++	$(LINK) $(LIBO2CB_LIBS) $(GLIB_LIBS) $(LIBOCFS2_LIBS) $(COM_ERR_LIBS) -lpthread
+ 
+ include $(TOPDIR)/Postamble.make
+diff -Naur ocfs2-tools-1.4.1/ocfs2_hb_ctl/Makefile ocfs2-tools-1.4.1-fix-linking/ocfs2_hb_ctl/Makefile
+--- ocfs2-tools-1.4.1/ocfs2_hb_ctl/Makefile	2008-07-22 00:44:25.000000000 +0200
++++ ocfs2-tools-1.4.1-fix-linking/ocfs2_hb_ctl/Makefile	2009-03-05 21:40:38.000000000 +0100
+@@ -32,6 +32,6 @@
+ all: ocfs2_hb_ctl
+ 
+ ocfs2_hb_ctl: $(OBJS) $(LIBOCFS2_DEPS) $(LIBO2DLM_DEPS) $(LIBO2CB_DEPS)
+-	$(LINK) $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(COM_ERR_LIBS)
++	$(LINK) $(LIBOCFS2_LIBS) $(LIBO2DLM_LIBS) $(LIBO2CB_LIBS) $(COM_ERR_LIBS) -lpthread
+ 
+ include $(TOPDIR)/Postamble.make

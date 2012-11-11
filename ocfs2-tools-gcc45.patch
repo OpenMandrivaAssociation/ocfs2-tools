@@ -1,0 +1,21 @@
+diff -up ocfs2-tools-1.4.3/mount.ocfs2/mount.ocfs2.c.bak ocfs2-tools-1.4.3/mount.ocfs2/mount.ocfs2.c
+--- ocfs2-tools-1.4.3/mount.ocfs2/mount.ocfs2.c.bak	2010-08-02 20:11:37.428252707 -0400
++++ ocfs2-tools-1.4.3/mount.ocfs2/mount.ocfs2.c	2010-08-02 20:11:57.114252733 -0400
+@@ -261,7 +261,7 @@ int main(int argc, char **argv)
+ 	char *extra = NULL;
+ 	int dev_ro = 0;
+ 	char *hbstr = NULL;
+-	char stackstr[strlen(OCFS2_CLUSTER_STACK_ARG) + OCFS2_STACK_LABEL_LEN + 1] = "";
++	char stackstr[strlen(OCFS2_CLUSTER_STACK_ARG) + OCFS2_STACK_LABEL_LEN + 1];
+ 	ocfs2_filesys *fs = NULL;
+ 	struct o2cb_cluster_desc cluster;
+ 	struct o2cb_region_desc desc;
+@@ -269,6 +269,8 @@ int main(int argc, char **argv)
+ 	int hb_started = 0;
+ 	struct stat statbuf;
+ 
++	stackstr[0] = '\0';
++
+ 	initialize_ocfs_error_table();
+ 	initialize_o2dl_error_table();
+ 	initialize_o2cb_error_table();
