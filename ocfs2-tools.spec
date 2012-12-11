@@ -1,9 +1,13 @@
+%if %{_use_internal_dependency_generator}
+%define __noautoreq 'pkgconfig(com_err)'
+%else
 %define _requires_exceptions pkgconfig(com_err) 
+%endif
 
 Summary:	Tools for managing the Oracle Cluster Filesystem 2
 Name:		ocfs2-tools
 Version:	1.6.4
-Release:	%mkrel 1
+Release:	2
 License:	GPL
 Group:		System/Base
 URL:		http://oss.oracle.com/projects/ocfs2-tools/
@@ -176,4 +180,77 @@ install -m 0644 vendor/common/o2cb.sysconfig %{buildroot}%{_sysconfdir}/sysconfi
 %{_libdir}/libocfs2.a
 
 
+
+
+
+%changelog
+* Sat Aug 06 2011 Luis Daniel Lucio Quiroz <dlucio@mandriva.org> 1.6.4-1mdv2012.0
++ Revision: 693395
+- 1.6.4
+  P1 rediffed
+  P3 merged upstream
+
+* Fri Nov 19 2010 Funda Wang <fwang@mandriva.org> 1.4.4-1mdv2011.0
++ Revision: 598882
+- BR ext2fs
+- new version 1.4.4
+
+* Tue Jun 09 2009 Frederic Crozat <fcrozat@mandriva.com> 1.4.1-2mdv2010.0
++ Revision: 384378
+- Switch to libblkid-devel
+
+* Sun Mar 08 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.4.1-1mdv2009.1
++ Revision: 352906
+- new version
+- fix format errors
+- fix missing header
+- fix some linking errors
+- disable -Wl,--no-undefined for modules
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+* Thu Mar 13 2008 Andreas Hasenack <andreas@mandriva.com> 1.2.3-3mdv2008.1
++ Revision: 187679
+- tarball for 1.2.6 was never uploaded: back to 1.2.3
+- rebuild for 2008.1
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+  + Erwan Velu <erwan@mandriva.org>
+    - 1.2.6
+
+
+* Wed Mar 21 2007 Oden Eriksson <oeriksson@mandriva.com> 1.2.3-2mdv2007.1
++ Revision: 147244
+- fix deps
+
+* Mon Mar 05 2007 Andreas Hasenack <andreas@mandriva.com> 1.2.3-1mdv2007.1
++ Revision: 133014
+- updated to version 1.2.3
+
+* Tue Oct 24 2006 Andreas Hasenack <andreas@mandriva.com> 1.2.2-1mdv2007.1
++ Revision: 71960
+- updated to version 1.2.2
+- added new devel packages
+- Import ocfs2-tools
+
+* Fri Sep 22 2006 Andreas Hasenack <andreas@mandriva.com> 1.2.1-2mdv2007.0
+- added buildrequires for ncurses-devel
+
+* Thu Sep 21 2006 Andreas Hasenack <andreas@mandriva.com> 1.2.1-1mdv2007.0
+- updated to version 1.2.1
+- added missing initscripts and a sysconfig file
+- added glibc-static-devel to buildrequires
+
+* Sun Apr 02 2006 Oden Eriksson <oeriksson@mandriva.com> 1.2.0-2mdk
+- forgot to add the config file, oops!
+
+* Sun Apr 02 2006 Oden Eriksson <oeriksson@mandriva.com> 1.2.0-1mdk
+- initial Mandriva package
+- used parts of the provided spec file
 
