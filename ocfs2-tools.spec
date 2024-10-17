@@ -10,7 +10,7 @@ Version:	1.6.4
 Release:	4
 License:	GPLv2+
 Group:		System/Base
-Url:		http://oss.oracle.com/projects/ocfs2-tools/
+Url:		https://oss.oracle.com/projects/ocfs2-tools/
 Source0:	http://oss.oracle.com/projects/ocfs2-tools/dist/files/source/v1.2/%{name}-%{version}.tar.gz
 Source10:	%{name}.rpmlintrc
 Patch1:		ocfs2-tools-1.6.4-fix-format-errors.patch
