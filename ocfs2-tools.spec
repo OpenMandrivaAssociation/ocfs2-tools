@@ -16,6 +16,11 @@ Source10:	%{name}.rpmlintrc
 Patch1:		ocfs2-tools-1.6.4-fix-format-errors.patch
 Patch2:		ocfs2-tools-1.4.4-fix-linking.patch
 Patch3:		ocfs2-tools-1.6.4-umode_t.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pygtk2.0
 BuildRequires:	glibc-static-devel
 BuildRequires:	openais-devel
